@@ -1,0 +1,34 @@
+{
+  "name" : "ClariFit From-To Date",
+  "version" : "2.0.0",
+  "description" : "From/To Date picker.",
+  "keywords" : ["date", "from", "to"],
+  "homepage" : "https://github.com/ClariFit/apex-plugin-from-to-date",
+  "bugs" : {
+    "url" : "https://github.com/ClariFit/apex-plugin-from-to-date/issues",
+    "email" : "martin@clarifit.com"
+  },
+  "license" : "MIT",
+  "author" : {
+    "name" : "Martin Giffy D'Souza",
+    "email" : "martin@clarifit.com",
+    "url" : "http://www.talkapex.com"
+  },
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/ClariFit/apex-plugin-from-to-date.git"
+  },
+  "private" : false,
+  "oracle" : {
+    "versions" : ["11.2.0.1", "12.1.0.1"],
+    "apex" : {
+      "versions" : ["5.0.0"],
+      "plugin" : {
+        "internalName" : "COM.CLARIFIT.FROMTODATEPICKER",
+        "type" : "item",
+        "demo" : "https://apex.oracle.com/pls/apex/f?p=90366:200",
+        "previewImage" :"https://raw.githubusercontent.com/OraOpenSource/apex-plugin-from-to-datepicker/master/marketing/screenshot_01.png"
+      }
+    }
+  }
+}
