@@ -1,22 +1,22 @@
 {
-  "name" : "ClariFit From-To Date",
+  "name" : "OraOpenSource From-To Date",
   "version" : "2.0.0",
   "description" : "From/To Date picker.",
   "keywords" : ["date", "from", "to"],
-  "homepage" : "https://github.com/ClariFit/apex-plugin-from-to-date",
+  "homepage" : "https://github.com/OraOpenSource/apex-plugin-from-to-datepicker",
   "bugs" : {
-    "url" : "https://github.com/ClariFit/apex-plugin-from-to-date/issues",
+    "url" : "https://github.com/OraOpenSource/apex-plugin-from-to-datepicker/issues",
     "email" : "martin@clarifit.com"
   },
   "license" : "MIT",
   "author" : {
-    "name" : "Martin Giffy D'Souza",
+    "name" : "OraOpenSource",
     "email" : "martin@clarifit.com",
     "url" : "http://www.talkapex.com"
   },
   "repository" : {
     "type" : "git",
-    "url" : "https://github.com/ClariFit/apex-plugin-from-to-date.git"
+    "url" : "https://github.com/OraOpenSource/apex-plugin-from-to-datepicker.git"
   },
   "private" : false,
   "oracle" : {
