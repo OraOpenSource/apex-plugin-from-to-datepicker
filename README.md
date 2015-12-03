@@ -7,7 +7,7 @@ This item plugin mimics the native date item type. The main difference is that i
 *Note: Previously called ClariFit From/To Date Picker. To ensure backwards compatibility the internal name of this plugin is still: `COM.CLARIFIT.FROMTODATEPICKER`*
 
 
-_Demo_: [https://apex.oracle.com/pls/apex/f?p=90366:200](https://apex.oracle.com/pls/apex/f?p=90366:200)
+**Demo**: [https://apex.oracle.com/pls/apex/f?p=90366:200](https://apex.oracle.com/pls/apex/f?p=90366:200)
 
 ## Sponsors
 
