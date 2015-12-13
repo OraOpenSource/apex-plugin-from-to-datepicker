@@ -108,18 +108,6 @@
         apex.debug.warn('Invalid Other Date', uiw);
       }
 
-      //Help prevent invalid configurations (Issue #5)
-      if (uiw._elements.$otherDate.attr('id') == uiw._elements.$elementObj.attr('id')){
-        var errMsg = uiw.widgetEventPrefix + ': ERROR - APEX Item Plugin setting - Corresponding Date Item cant be self.';
-
-        window.alert(errMsg);
-        apex.debug.error(
-          '%c' + errMsg + ' See https://github.com/OraOpenSource/apex-plugin-from-to-datepicker/issues/5',
-          'background: red; color: yellow; font-size: xx-large'
-        );
-      }
-
-
       //Register DatePicker
       uiw._elements.$elementObj.datepicker({
         autoSize: uiw.options.datePickerAttrs.autoSize,

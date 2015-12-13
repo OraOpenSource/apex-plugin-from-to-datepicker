@@ -22,6 +22,7 @@ as
   -- Item Plugin Attributes
   l_show_on apex_application_page_items.attribute_01%type := lower(p_item.attribute_01); -- When to show date picker. Options: focus, button, both
   l_date_picker_type apex_application_page_items.attribute_01%type := lower(p_item.attribute_02); -- from or to
+  -- Note: If this cahnages from attribute 03 the need to modify validations below
   l_other_item apex_application_page_items.attribute_01%type := upper(p_item.attribute_03); -- Name of other date picker item
 
 
@@ -30,6 +31,9 @@ as
   l_orcl_date_format_mask p_item.format_mask%type; -- Oracle date format: http://www.techonthenet.com/oracle/functions/to_date.php
   l_js_date_format_mask p_item.format_mask%type; -- JS date format: http://docs.jquery.com/UI/Datepicker/formatDate
   l_other_js_date_format_mask apex_application_page_items.format_mask%type; -- This is the other datepicker's JS date format. Required since it may not contain the same format mask as this date picker
+
+
+  l_err_msg varchar2(255);
 
 begin
   -- Debug information (if app is being run in debug mode)
@@ -62,6 +66,51 @@ begin
     -- Not read only
     -- Get name. Used in the "name" form element attribute which is different than the "id" attribute
     l_page_item_name := apex_plugin.get_input_name_for_page_item (p_is_multi_value => false);
+
+    -- Validations (configuration)
+    select
+      case
+        -- Correspending date item must be different than self (Issue $5)
+        when pi_org.item_name = pi_other.item_name then
+          '%ERROR_PREFIX% "' || pa_ci.prompt || '" must be a different page item (can''t be the same as self).'
+        -- Other item should exist
+        when pi_other.item_name is null then
+          '%ERROR_PREFIX% "' || pa_ci.prompt || '" item (%OTHER_ITEM_NAME%) does not exist'
+        -- Check that corresponding item is also from/to date picker
+        when pi_org.display_as_code != pi_other.display_as_code then
+          '%ERROR_PREFIX% %OTHER_ITEM_NAME% must be of same type (' || pi_org.display_as || ')'
+        -- Check that corresponding item points to this one
+        when nvl(pi_other.attribute_03,'a') != pi_org.item_name then
+          '%ERROR_PREFIX% "' || pa_ci.prompt || '" for %OTHER_ITEM_NAME% is not set to %ITEM_NAME%'
+        else
+          null
+      end err_msg
+    into
+      l_err_msg
+    from
+      apex_application_page_items pi_org,
+      apex_application_page_items pi_other,
+      apex_appl_plugin_attributes pa_ci -- corresponding item attribute
+    where 1=1
+      and pi_org.application_id = apex_application.g_flow_id
+      and pi_org.item_name = p_item.name
+      and pi_org.application_id = pi_other.application_id(+)
+      and pi_org.attribute_03 = pi_other.item_name(+)
+      -- Attributes
+      and pa_ci.application_id = pi_org.application_id
+      and upper(pi_org.display_as_code) = upper('PLUGIN_' || pa_ci.plugin_name)
+      and pa_ci.attribute_sequence = 3
+    ;
+
+    if l_err_msg is not null then
+      l_err_msg := replace(l_err_msg, '%ERROR_PREFIX%', '%ITEM_NAME% Configuration Error:');
+      l_err_msg := replace(l_err_msg, '%ITEM_NAME%', p_item.name);
+      l_err_msg := replace(l_err_msg, '%OTHER_ITEM_NAME%', l_other_item);
+
+      raise_application_error(-20001, l_err_msg);
+    end if;
+
+
 
     -- SET VALUES
 
