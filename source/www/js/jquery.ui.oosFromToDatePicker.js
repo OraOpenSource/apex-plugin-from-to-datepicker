@@ -70,7 +70,8 @@
       };
 
       uiw._elements = {
-        $otherDate: null
+        $otherDate: null,
+        $elementObj: $(uiw.element)
       };
 
     }, //_setWidgetVars
@@ -90,7 +91,6 @@
       apex.debug.log('element:', uiw.element[0]);
 
       var
-        $elementObj = $(uiw.element),
         otherDate,
         minDate = '',
         maxDate = ''
@@ -108,8 +108,20 @@
         apex.debug.warn('Invalid Other Date', uiw);
       }
 
+      //Help prevent invalid configurations (Issue #5)
+      if (uiw._elements.$otherDate.attr('id') == uiw._elements.$elementObj.attr('id')){
+        var errMsg = uiw.widgetEventPrefix + ': ERROR - APEX Item Plugin setting - Corresponding Date Item cant be self.';
+
+        window.alert(errMsg);
+        apex.debug.error(
+          '%c' + errMsg + ' See https://github.com/OraOpenSource/apex-plugin-from-to-datepicker/issues/5',
+          'background: red; color: yellow; font-size: xx-large'
+        );
+      }
+
+
       //Register DatePicker
-      $elementObj.datepicker({
+      uiw._elements.$elementObj.datepicker({
         autoSize: uiw.options.datePickerAttrs.autoSize,
         buttonText: uiw.options.datePickerAttrs.buttonText,
         changeMonth: uiw.options.datePickerAttrs.changeMonth,
@@ -121,22 +133,22 @@
         showOn: uiw.options.datePickerAttrs.showOn,
         //Events
         onSelect: function(dateText, inst){
-          var extraParams = { dateText: dateText, inst: inst },
-            $this = $(this)
+          var
+            extraParams = { dateText: dateText, inst: inst }
           ;
-          $this.trigger('change'); // Need to trigger change event so that other date is updated
+          uiw._elements.$elementObj.trigger('change'); // Need to trigger change event so that other date is updated
           // #2
-          // $this.trigger('oosfromtodatepickeronchange', extraParams); // Trigger Plugin Event: pluginEventOnSelect if something is listening to it
+          // uiw._elements.$elementObj.trigger('oosfromtodatepickeronchange', extraParams); // Trigger Plugin Event: pluginEventOnSelect if something is listening to it
         }
       });
 
-      $elementObj.on('change.' + uiw.widgetEventPrefix, function(){
+      uiw._elements.$elementObj.on('change.' + uiw.widgetEventPrefix, function(){
         // Sets the min/max date for related date element
         // Since this function is being called as an event "this" refers to the DOM object and not the widget "this" object
         // uiw references the UI Widget "this"
         apex.debug.log(uiw._scope, 'onchange', this);
 
-        var $this = $(this),
+        var
           optionToChange = uiw.options.datePickerType == 'from' ? 'minDate' : 'maxDate',
           selfDate
         ;
@@ -144,7 +156,7 @@
         try {
           selfDate = $.datepicker.parseDate(
             uiw.options.datePickerAttrs.dateFormat,
-            $this.val(),
+            uiw._elements.$elementObj.val(),
             {shortYearCutoff: 30});
 
           uiw._elements.$otherDate.datepicker('option', optionToChange,selfDate); //Set the min/max date information for related date option
@@ -153,25 +165,26 @@
           uiw._elements.$otherDate.next('button').addClass(uiw.options.buttonClasses);
         } catch (e) {
           // Future: Add optional alert message (currently APEX doesn't offer this nor does it suppress a change event)
+          apex.debug.error(e);
         }
 
       }); //on
 
       // Only add button class if button is to show up
       if (uiw.options.datePickerAttrs.showOn === 'both' || uiw.options.datePickerAttrs.showOn === 'button') {
-        $elementObj.next('button').addClass(uiw.options.buttonClasses);
+        uiw._elements.$elementObj.next('button').addClass(uiw.options.buttonClasses);
       }
 
       // Register apex.item callbacks
       // Examples copied from widget.datepicker.js
       widget.initPageItem(uiw.element[0].id, {
         enable : function() {
-          $elementObj
+          uiw._elements.$elementObj
             .datepicker('enable') // call native jQuery UI enable
             .removeClass('apex_disabled'); // remove disabled class
         },
         disable : function() {
-          $elementObj
+          uiw._elements.$elementObj
             .datepicker('disable') // call native jQuery UI disable
             .addClass('apex_disabled'); // add disabled class to ensure value is not POSTed
         }
