@@ -161,8 +161,9 @@ begin
       %DATE_PICKER_TYPE_END_ELEMENT%
     });';
     l_html := replace(l_html, '%NAME%', p_item.name);
-    l_html := replace(l_html, '%OTHER_DATE_FORMAT%', apex_javascript.add_attribute('dateFormat',  apex_escape.html(l_other_js_date_format_mask)));
-    l_html := replace(l_html, '%DATE_FORMAT%', apex_javascript.add_attribute('dateFormat',  apex_escape.html(l_js_date_format_mask)));
+    -- Issue #4: Don't escape date formats
+    l_html := replace(l_html, '%OTHER_DATE_FORMAT%', apex_javascript.add_attribute('dateFormat',  l_other_js_date_format_mask));
+    l_html := replace(l_html, '%DATE_FORMAT%', apex_javascript.add_attribute('dateFormat',  l_js_date_format_mask));
     l_html := replace(l_html, '%ID%', apex_javascript.add_attribute('id', l_other_item));
     l_html := replace(l_html, '%VALUE_END_ELEMENT%', apex_javascript.add_attribute('value',  apex_escape.html(v(l_other_item)), false, false));
     l_html := replace(l_html, '%SHOW_ON_END_ELEMENT%', apex_javascript.add_attribute('showOn',  apex_escape.html(l_show_on), false, false));
