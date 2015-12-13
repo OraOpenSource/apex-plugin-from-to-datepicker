@@ -1,33 +1,42 @@
 {
-  "name" : "OraOpenSource From-To Date",
-  "version" : "2.1.0",
-  "description" : "From/To Date picker.",
-  "keywords" : ["date", "from", "to"],
-  "homepage" : "https://github.com/OraOpenSource/apex-plugin-from-to-datepicker",
-  "bugs" : {
-    "url" : "https://github.com/OraOpenSource/apex-plugin-from-to-datepicker/issues",
-    "email" : "martin@clarifit.com"
+  "name": "OraOpenSource From-To Date",
+  "version": "2.1.0",
+  "description": "From/To Date picker.",
+  "keywords": [
+    "date",
+    "from",
+    "to"
+  ],
+  "homepage": "https://github.com/OraOpenSource/apex-plugin-from-to-datepicker",
+  "bugs": {
+    "url": "https://github.com/OraOpenSource/apex-plugin-from-to-datepicker/issues",
+    "email": "martin@clarifit.com"
   },
-  "license" : "MIT",
-  "author" : {
-    "name" : "OraOpenSource",
-    "email" : "martin@clarifit.com",
-    "url" : "http://www.talkapex.com"
+  "license": "MIT",
+  "author": {
+    "name": "OraOpenSource",
+    "email": "martin@clarifit.com",
+    "url": "http://www.talkapex.com"
   },
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/OraOpenSource/apex-plugin-from-to-datepicker.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OraOpenSource/apex-plugin-from-to-datepicker.git"
   },
-  "private" : false,
-  "oracle" : {
-    "versions" : ["11.2.0.1", "12.1.0.1"],
-    "apex" : {
-      "versions" : ["5.0.0"],
-      "plugin" : {
-        "internalName" : "COM.CLARIFIT.FROMTODATEPICKER",
-        "type" : "item",
-        "demo" : "https://apex.oracle.com/pls/apex/f?p=90366:200",
-        "previewImage" :"https://raw.githubusercontent.com/OraOpenSource/apex-plugin-from-to-datepicker/master/marketing/screenshot_01.gif"
+  "private": false,
+  "oracle": {
+    "versions": [
+      "11.2.0.1",
+      "12.1.0.1"
+    ],
+    "apex": {
+      "versions": [
+        "5.0.2"
+      ],
+      "plugin": {
+        "internalName": "COM.CLARIFIT.FROMTODATEPICKER",
+        "type": "item",
+        "demo": "https://apex.oracle.com/pls/apex/f?p=90366:200",
+        "previewImage": "https://raw.githubusercontent.com/OraOpenSource/apex-plugin-from-to-datepicker/master/marketing/screenshot_01.gif"
       }
     }
   }
