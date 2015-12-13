@@ -1,6 +1,6 @@
 {
   "name" : "OraOpenSource From-To Date",
-  "version" : "2.0.0",
+  "version" : "2.1.0",
   "description" : "From/To Date picker.",
   "keywords" : ["date", "from", "to"],
   "homepage" : "https://github.com/OraOpenSource/apex-plugin-from-to-datepicker",
@@ -27,7 +27,7 @@
         "internalName" : "COM.CLARIFIT.FROMTODATEPICKER",
         "type" : "item",
         "demo" : "https://apex.oracle.com/pls/apex/f?p=90366:200",
-        "previewImage" :"https://raw.githubusercontent.com/OraOpenSource/apex-plugin-from-to-datepicker/master/marketing/screenshot_01.png"
+        "previewImage" :"https://raw.githubusercontent.com/OraOpenSource/apex-plugin-from-to-datepicker/master/marketing/screenshot_01.gif"
       }
     }
   }
